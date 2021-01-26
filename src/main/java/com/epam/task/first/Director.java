@@ -2,15 +2,16 @@ package com.epam.task.first;
 
 import com.epam.task.first.data.DataException;
 import com.epam.task.first.data.DataReader;
+import com.epam.task.first.data.PathException;
 import com.epam.task.first.entities.Array;
 import com.epam.task.first.parsing.ArrayCreator;
 import com.epam.task.first.parsing.ArrayValidator;
+import com.epam.task.first.parsing.NumberInLineException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Director {
-    //final String FILE_NAME = "D://EPAM-training//inputTask2.txt";
 
     private DataReader dataReader;
     private ArrayValidator arrayValidator;
@@ -22,20 +23,18 @@ public class Director {
         this.arrayCreator = arrayCreator;
     }
 
-    public Director() {
-
-    }
-
-    public List<Array> makeValidArraysFromFile(String filename)
-            throws DataException { // обработать !!!!!!!!1
+    public List<Array> makeArraysFromFile(String filename) {
         List<Array> arrays = new ArrayList<>();
-        List<String> lines = new ArrayList<>(dataReader.readData(filename));
-        for (String line : lines) {
-            if (arrayValidator.validateLineContent(line) && arrayValidator.validateIfNotEmpty(line)) {
-                arrays.add(arrayCreator.createArrayFromLine(line));
+        try {
+            List<String> lines = new ArrayList<>(dataReader.readDataFromFile(filename));
+            for (String line : lines) {
+                if (arrayValidator.validateLineContent(line) && arrayValidator.validateIfNotEmpty(line)) {
+                    arrays.add(arrayCreator.createArrayFromLine(line));
+                }
             }
+        } catch (DataException | PathException | NumberInLineException e) {
+            e.getMessage();
         }
         return arrays;
     }
-
 }

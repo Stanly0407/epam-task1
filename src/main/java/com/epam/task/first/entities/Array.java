@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-// Task 1
 public class Array {
 
     private final List<Integer> elements;

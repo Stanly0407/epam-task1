@@ -2,9 +2,11 @@ package com.epam.task.first;
 
 import com.epam.task.first.data.DataException;
 import com.epam.task.first.data.DataReader;
+import com.epam.task.first.data.PathException;
 import com.epam.task.first.entities.Array;
 import com.epam.task.first.parsing.ArrayCreator;
 import com.epam.task.first.parsing.ArrayValidator;
+import com.epam.task.first.parsing.NumberInLineException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -22,17 +24,16 @@ public class DirectorTest {
     private final static String TEST_DATA = "./src/test/resources/input.txt";
 
     @Test
-    public void shouldMakeValidArraysFromFileData() throws DataException {  // RENAME!!!!!!!
+    public void shouldMakeValidArraysFromFileData() throws DataException, PathException, NumberInLineException {
 
         DataReader dataReader = Mockito.mock(DataReader.class);
-        when(dataReader.readData(anyString())).thenReturn(Collections.singletonList(TEST_DATA));
+        when(dataReader.readDataFromFile(anyString())).thenReturn(Collections.singletonList(TEST_DATA));
 
         ArrayValidator arrayValidator = Mockito.mock(ArrayValidator.class);
         when(arrayValidator.validateLineContent(anyString())).thenReturn(true);
         when(arrayValidator.validateIfNotEmpty(anyString())).thenReturn(true);
 
         Array array = new Array(1, 2, 2, 2);
-
         List<Array> expectedArrays = new ArrayList<>();
         expectedArrays.add(array);
 
@@ -41,9 +42,8 @@ public class DirectorTest {
 
         Director director = new Director(dataReader, arrayValidator, arrayCreator);
 
-        List<Array> actualArrays = new ArrayList<>(director.makeValidArraysFromFile(TEST_DATA));
+        List<Array> actualArrays = new ArrayList<>(director.makeArraysFromFile(TEST_DATA));
 
         Assert.assertEquals(expectedArrays, actualArrays);
     }
-
 }

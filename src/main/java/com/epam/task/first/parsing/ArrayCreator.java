@@ -8,11 +8,15 @@ import java.util.List;
 
 public class ArrayCreator {
 
-    public Array createArrayFromLine(String data) {
+    public Array createArrayFromLine(String data) throws NumberInLineException {
         List<Integer> elements = new ArrayList<>();
         String[] arrayFromLine = data.split("[\\s]");
-        for (String stringElement : arrayFromLine) {
-            elements.add(Integer.valueOf(stringElement));
+        try {
+            for (String stringElement : arrayFromLine) {
+                elements.add(Integer.valueOf(stringElement));
+            }
+        } catch (NumberFormatException e) {
+            throw new NumberInLineException("regex in class ArrayValidator isn't fully correct", e);
         }
         return new Array(elements);
     }

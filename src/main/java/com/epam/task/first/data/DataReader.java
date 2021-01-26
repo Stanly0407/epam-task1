@@ -1,46 +1,36 @@
 package com.epam.task.first.data;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-
-// логика чтения строк из файла
-//FileInputStream / FileReader java.io
-// нельзя использовать классы типа File.readLines()
-
 public class DataReader {
 
-    public List<String> readData(String filename) throws DataException {
+    public List<String> readDataFromFile(String filename) throws DataException, PathException {
         List<String> lines = new ArrayList<>();
 
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(
-                    new InputStreamReader(
-                            new FileInputStream(filename), Charset.forName("UTF-8")));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
             }
+        } catch (FileNotFoundException e) {
+            throw new PathException("file at the specified path doesn't exist", e);
         } catch (IOException e) {
-            // log error
+            throw new DataException("file read error", e);
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    // log warning
+                    throw new DataException("close failed", e);
                 }
             }
-
         }
-
         return lines;
     }
-
-
 }
 
 

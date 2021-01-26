@@ -12,8 +12,8 @@ public class DataReaderTest {
     DataReader dataReader = new DataReader();
 
     @Test
-    public void readDataTestShouldReturnStringsListFromLines () throws DataException {
-        List<String> lines = new ArrayList<>(dataReader.readData(TEST_DATA));
+    public void readDataTestShouldReturnStringsListFromLines () throws DataException, PathException {
+        List<String> lines = new ArrayList<>(dataReader.readDataFromFile(TEST_DATA));
         List<String> expectedLines = new ArrayList<>();
         expectedLines.add("8 9 3 8");
         expectedLines.add("p9 lpt6");
@@ -21,7 +21,11 @@ public class DataReaderTest {
         expectedLines.add("-548 69 1 6 0");
 
         Assert.assertEquals(expectedLines, lines);
-
     }
 
+    @Test (expected = PathException.class)
+    public void readDataTestShouldTrowsPathException() throws DataException, PathException {
+        final String WRONG_PATH = "./src/input.txt";
+        List<String> lines = new ArrayList<>(dataReader.readDataFromFile(WRONG_PATH));
+    }
 }
