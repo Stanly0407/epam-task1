@@ -10,10 +10,9 @@ import java.util.List;
 
 
 public class Main {
+    private static final String FILE_NAME = "D://EPAM-training//inputTask2.txt";
 
     public static void main(String[] args) {
-        final String FILE_NAME = "D://EPAM-training//inputTask2.txt";
-
         DataReader dataReader = new DataReader();
         ArrayValidator arrayValidator = new ArrayValidator();
         ArrayCreator arrayCreator = new ArrayCreator();
