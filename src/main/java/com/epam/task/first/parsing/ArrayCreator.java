@@ -10,7 +10,8 @@ public class ArrayCreator {
 
     public Array createArrayFromLine(String data) throws NumberInLineException {
         List<Integer> elements = new ArrayList<>();
-        String[] arrayFromLine = data.split("[\\s]");
+        String spacesSeparator = "[\\s]";
+        String[] arrayFromLine = data.split(spacesSeparator);
         try {
             for (String stringElement : arrayFromLine) {
                 elements.add(Integer.valueOf(stringElement));

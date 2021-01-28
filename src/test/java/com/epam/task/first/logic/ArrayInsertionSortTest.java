@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ArrayInsertionSortTest {
@@ -12,18 +13,9 @@ public class ArrayInsertionSortTest {
 
     @Test
     public void shouldSortArrayByInsertionSort(){
-        List<Integer> testedArray = new ArrayList<>();
-        testedArray.add(0);
-        testedArray.add(20);
-        testedArray.add(-90);
-        testedArray.add(42);
-        List<Integer> expectedArray = new ArrayList<>();
-        expectedArray.add(-90);
-        expectedArray.add(0);
-        expectedArray.add(20);
-        expectedArray.add(42);
+        List<Integer> testedArray = new ArrayList<>(Arrays.asList(0, 20, -90, 42));
+        List<Integer> expectedArray = new ArrayList<>(Arrays.asList(-90, 0, 20, 42));
         arrayInsertionSort.sortArrayByInsertionSort(testedArray);
-
         Assert.assertEquals(expectedArray, testedArray);
     }
 

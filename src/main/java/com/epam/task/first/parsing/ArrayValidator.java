@@ -6,13 +6,13 @@ import java.util.regex.Pattern;
 public class ArrayValidator {
 
     public boolean validateLineContent(String line) {
-
-        Pattern linePattern = Pattern.compile("^([\\d -]\\s*)+$");
+        String onlyDigitsAndSpaces = "^([\\d -]\\s*)+$";
+        Pattern linePattern = Pattern.compile(onlyDigitsAndSpaces);
         Matcher matcher = linePattern.matcher(line);
         return matcher.matches();
     }
 
-    public boolean  validateIfNotEmpty(String line){
+    public boolean validateIfNotEmpty(String line) {
         return !line.isEmpty();
     }
 
