@@ -4,7 +4,6 @@ import com.epam.task.first.entities.Array;
 
 import java.util.List;
 
-// Task 1
 public class ConsoleArrayPrinter implements ArrayPrinter {
 
     public void printArray(Array array) {
